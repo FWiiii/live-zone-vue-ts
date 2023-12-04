@@ -9,6 +9,7 @@ import UnoCSS from 'unocss/vite'
 import VueMacros from 'unplugin-vue-macros/vite'
 import VueRouter from 'unplugin-vue-router/vite'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
+import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 
 export default defineConfig({
   resolve: {
@@ -53,7 +54,16 @@ export default defineConfig({
 
     // https://github.com/antfu/vite-plugin-components
     Components({
+      dirs: [
+        './src/components',
+        './src/layouts',
+      ],
       dts: true,
+      resolvers: [
+        AntDesignVueResolver({
+          importStyle: false, // css in js
+        }),
+      ],
     }),
 
     // https://github.com/antfu/unocss
