@@ -15,6 +15,9 @@
   "dependencies": {
     "@vueuse/core": "^10.6.1",
     "ant-design-vue": "4.x",
+    "artplayer": "^5.0.9",
+    "flv.js": "^1.6.2",
+    "hls.js": "^1.4.12",
     "vue": "^3.3.8",
     "vue-router": "^4.2.5"
   },

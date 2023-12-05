@@ -6,8 +6,8 @@ const indexRecommendData = ref<RecommendData[]>()
 
 async function getIndexRecommendData() {
   changeLoadingStatus(true)
-  const { data } = await useFetch('http://live.yj1211.work/api/live/getRecommend?page=1&size=20')
-  const res: RecommendResponse = JSON.parse(data.value as string)
+  const { data } = await useFetch('http://live.yj1211.work/api/live/getRecommend?page=1&size=20').get().json()
+  const res: RecommendResponse = data.value
   changeLoadingStatus(false)
   indexRecommendData.value = res.data
 }
@@ -21,7 +21,9 @@ onMounted(async () => {
   <IndexLayout v-slot="{ contentHeight }">
     <div :style="`height:${contentHeight}px; overflow-y:auto;padding: 16px`" class="container">
       <div flex="~ wrap justify-between gap-y-4" class="card-container">
-        <RoomCard :room-data="indexRecommendData" />
+        <div v-for="roomData in indexRecommendData" :key="roomData.roomId">
+          <RoomCard :room-data="roomData" />
+        </div>
       </div>
     </div>
   </IndexLayout>
