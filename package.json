@@ -16,10 +16,16 @@
     "@vueuse/core": "^10.6.1",
     "ant-design-vue": "4.x",
     "artplayer": "^5.0.9",
+    "danmaku": "^2.0.6",
     "flv.js": "^1.6.2",
     "hls.js": "^1.4.12",
+    "js-md5": "^0.8.3",
+    "mitt": "^3.0.1",
+    "pako": "^2.1.0",
     "vue": "^3.3.8",
-    "vue-router": "^4.2.5"
+    "vue-lazyload": "^3.0.0",
+    "vue-router": "^4.2.5",
+    "vue3-virtual-scroll-list": "^0.2.1"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.0.0",

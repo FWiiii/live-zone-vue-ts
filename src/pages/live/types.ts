@@ -33,3 +33,18 @@ export interface Datum {
   urlType: string
   sourceName: string
 }
+
+export interface liveSourceInfoType {
+  selectSource: string
+  selectRate: string
+  rateSourceSelector: Array<any>
+  sourceAndRateMap: Map<string, string>
+  rateSelector: Array<any>
+  playUrl: string
+}
+
+export interface Danmu {
+  msg: string
+  user: string
+  id: number
+}

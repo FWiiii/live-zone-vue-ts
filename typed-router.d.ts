@@ -39,11 +39,13 @@ import type {
 
 declare module 'vue-router/auto/routes' {
   export interface RouteNamedMap {
-    '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
+  export interface RouteNamedMap {
     '//': RouteRecordInfo<'//', '/', Record<never, never>, Record<never, never>>,
-    '/[...all]': RouteRecordInfo<'/[...all]', '/:all(.*)', { all: ParamValue<true> }, { all: ParamValue<false> }>,
-    '/hi/[name]': RouteRecordInfo<'/hi/[name]', '/hi/:name', { name: ParamValue<true> }, { name: ParamValue<false> }>,
-    '/room/': RouteRecordInfo<'/room/', '/room', Record<never, never>, Record<never, never>>,
+  }  '/live/': RouteRecordInfo<'/live/', '/live', Record<never, never>, Record<never, never>>,
+    '/live/components/ArtPlayer': RouteRecordInfo<'/live/components/ArtPlayer', '/live/components/ArtPlayer', Record<never, never>, Record<never, never>>,
+    '/live/components/Danmu': RouteRecordInfo<'/live/components/Danmu', '/live/components/Danmu', Record<never, never>, Record<never, never>>,
+    '/live/components/DanmuItem': RouteRecordInfo<'/live/components/DanmuItem', '/live/components/DanmuItem', Record<never, never>, Record<never, never>>,
+    '/live/components/RoomInfo': RouteRecordInfo<'/live/components/RoomInfo', '/live/components/RoomInfo', Record<never, never>, Record<never, never>>,
   }
 }
 

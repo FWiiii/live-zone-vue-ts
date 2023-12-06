@@ -4,22 +4,41 @@ import { changeLoadingStatus } from '~/store'
 
 const indexRecommendData = ref<RecommendData[]>()
 
+const page = ref<number>(1)
+const size = ref<number>(20)
+
 async function getIndexRecommendData() {
   changeLoadingStatus(true)
-  const { data } = await useFetch('http://live.yj1211.work/api/live/getRecommend?page=1&size=20').get().json()
+  const { data } = await useFetch(`http://live.yj1211.work/api/live/getRecommend?page=${page.value}&size=${size.value}`).get().json()
   const res: RecommendResponse = data.value
   changeLoadingStatus(false)
-  indexRecommendData.value = res.data
+  page.value === 1 ? indexRecommendData.value = res.data : indexRecommendData.value = indexRecommendData.value!.concat(res.data)
+}
+
+const scrollContainer = ref<HTMLElement>()
+
+async function loadMoreData() {
+  const { scrollTop, scrollHeight, clientHeight } = scrollContainer.value!
+  const d = scrollHeight - scrollTop - clientHeight
+  if (d < 1 && d > -1) {
+    page.value++
+    await getIndexRecommendData()
+  }
 }
 
 onMounted(async () => {
   await getIndexRecommendData()
+  scrollContainer.value!.addEventListener('scroll', loadMoreData)
+})
+
+onBeforeUnmount(() => {
+  scrollContainer.value!.removeEventListener('scroll', loadMoreData)
 })
 </script>
 
 <template>
   <IndexLayout v-slot="{ contentHeight }">
-    <div :style="`height:${contentHeight}px; overflow-y:auto;padding: 16px`" class="container">
+    <div ref="scrollContainer" :style="`height:${contentHeight}px; overflow-y:auto;padding: 16px`" class="container">
       <div flex="~ wrap justify-between gap-y-4" class="card-container">
         <div v-for="roomData in indexRecommendData" :key="roomData.roomId">
           <RoomCard :room-data="roomData" />
@@ -41,8 +60,7 @@ onMounted(async () => {
 }
 
 .container::-webkit-scrollbar-track {
-  background: rgb(179, 177, 177);
-  border-radius: 10px;
+  background: transparent;
 }
 
 .container::-webkit-scrollbar-thumb {

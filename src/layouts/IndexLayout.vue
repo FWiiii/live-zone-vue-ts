@@ -3,19 +3,17 @@ import type { CSSProperties } from 'vue'
 import { loading } from '~/store'
 
 const documentHeight = document.documentElement.clientHeight
-const headerHeight = 64
+const headerHeight = 40
 const contentHeight = documentHeight - headerHeight
 
 const headerStyle: CSSProperties = {
-  height: 64,
-  lineHeight: '64px',
-  backgroundColor: '#7dbcea',
+  height: `${headerHeight}px`,
+  lineHeight: `${headerHeight}px`,
+  background: '#fff',
 }
 
 const contentStyle: CSSProperties = {
-  height: contentHeight,
-  overflowY: 'hidden',
-  position: 'relative',
+  height: `${contentHeight}px`,
 }
 
 const siderStyle: CSSProperties = {
@@ -33,9 +31,16 @@ const siderStyle: CSSProperties = {
       <a-layout-sider :style="siderStyle">
         Sider
       </a-layout-sider>
-      <a-layout-content :style="contentStyle">
-        <div v-if="loading" class="absolute left-50% top-50%">
-          <a-spin size="large" />
+      <a-layout-content relative :style="contentStyle">
+        <div v-if="loading" absolute z-100 h-full w-full class="bg-black/10">
+          <div
+            class="absolute left-50% top-50%"
+            flex="~ col items-center justify-center"
+            h-20 w-20 rounded-xl bg-white
+          >
+            <a-spin size="large" />
+            <span text-xs font-300>加载中</span>
+          </div>
         </div>
         <slot :content-height="contentHeight" />
       </a-layout-content>

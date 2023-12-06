@@ -1,5 +1,5 @@
 <template>
   <main font-sans text-black>
-    <RouterView />
+    <RouterView :key="$route.name + ($route.query.id || '') + ($route.query.platform || '')" />
   </main>
 </template>

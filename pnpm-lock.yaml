@@ -14,18 +14,36 @@ dependencies:
   artplayer:
     specifier: ^5.0.9
     version: 5.0.9
+  danmaku:
+    specifier: ^2.0.6
+    version: 2.0.6
   flv.js:
     specifier: ^1.6.2
     version: 1.6.2
   hls.js:
     specifier: ^1.4.12
     version: 1.4.12
+  js-md5:
+    specifier: ^0.8.3
+    version: 0.8.3
+  mitt:
+    specifier: ^3.0.1
+    version: 3.0.1
+  pako:
+    specifier: ^2.1.0
+    version: 2.1.0
   vue:
     specifier: ^3.3.8
     version: 3.3.8(typescript@5.3.2)
+  vue-lazyload:
+    specifier: ^3.0.0
+    version: 3.0.0
   vue-router:
     specifier: ^4.2.5
     version: 4.2.5(vue@3.3.8)
+  vue3-virtual-scroll-list:
+    specifier: ^0.2.1
+    version: 0.2.1(vue@3.3.8)
 
 devDependencies:
   '@antfu/eslint-config':
@@ -2785,6 +2803,10 @@ packages:
   /csstype@3.1.2:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
 
+  /danmaku@2.0.6:
+    resolution: {integrity: sha512-yF+nLNp2JkkwTuLVCe/Y3POI6Y1CUZR6zlv1XZ28QYzfNMn4+xVMMKBbDGNeIXQjm70kuMR+iZrG1uYSo0SoDQ==}
+    dev: false
+
   /data-urls@4.0.0:
     resolution: {integrity: sha512-/mMTei/JXPqvFqQtfyTowxmJVwr2PVAeCcDxyFf6LhoOu/09TX2OX3kb2wzi4DMXcfj4OItwDOnhl5oziPnT6g==}
     engines: {node: '>=14'}
@@ -4059,6 +4081,10 @@ packages:
       nopt: 6.0.0
     dev: true
 
+  /js-md5@0.8.3:
+    resolution: {integrity: sha512-qR0HB5uP6wCuRMrWPTrkMaev7MJZwJuuw4fnwAzRgP4J4/F8RwtodOKpGp4XpqsLBFzzgqIO42efFAyz2Et6KQ==}
+    dev: false
+
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
@@ -4526,6 +4552,10 @@ packages:
       yallist: 4.0.0
     dev: true
 
+  /mitt@3.0.1:
+    resolution: {integrity: sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==}
+    dev: false
+
   /mkdirp@1.0.4:
     resolution: {integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==}
     engines: {node: '>=10'}
@@ -4862,6 +4892,10 @@ packages:
       - bluebird
       - supports-color
     dev: true
+
+  /pako@2.1.0:
+    resolution: {integrity: sha512-w+eufiZ1WuJYgPXbV/PO3NCMEc3xqylkKHzp8bxp1uW4qaSNQUkwmLLEc3kKsfz8lpV1F8Ht3U1Cm+9Srog2ug==}
+    dev: false
 
   /parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
@@ -6142,6 +6176,10 @@ packages:
       - supports-color
     dev: true
 
+  /vue-lazyload@3.0.0:
+    resolution: {integrity: sha512-h2keL/Rj550dLgesgOtXJS9qOiSMmuJNeVlfNAYV1/IYwOQYaWk5mFJlwRxmZDK9YC5gECcFLYYj7z1lKSf9ug==}
+    dev: false
+
   /vue-router@4.2.5(vue@3.3.8):
     resolution: {integrity: sha512-DIUpKcyg4+PTQKfFPX88UWhlagBEBEfJ5A8XDXRJLUnZOvcpMF8o/dnL90vpVkGaPbjvXazV/rC1qBKrZlFugw==}
     peerDependencies:
@@ -6176,6 +6214,14 @@ packages:
       vue: ^3.0.0
     dependencies:
       is-plain-object: 3.0.1
+      vue: 3.3.8(typescript@5.3.2)
+    dev: false
+
+  /vue3-virtual-scroll-list@0.2.1(vue@3.3.8):
+    resolution: {integrity: sha512-G4KxITUOy9D4ro15zOp40D6ogmMefzjIyMsBKqN3xGbV1P6dlKYMx+BBXCKm3Nr/6iipcUKM272Sh2AJRyWMyQ==}
+    peerDependencies:
+      vue: '>=3.0.0'
+    dependencies:
       vue: 3.3.8(typescript@5.3.2)
     dev: false
 
