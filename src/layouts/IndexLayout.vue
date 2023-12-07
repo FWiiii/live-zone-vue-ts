@@ -17,8 +17,38 @@ const contentStyle: CSSProperties = {
 }
 
 const siderStyle: CSSProperties = {
-  lineHeight: `${contentHeight}px`,
-  backgroundColor: '#3ba0e9',
+  background: '#fff',
+}
+
+const selectedKeys = ref([])
+const openKeys = ref([])
+const items = ref([
+  {
+    key: '/',
+    label: '推荐',
+    title: '推荐',
+  },
+  {
+    key: '/follows',
+    label: '关注',
+    title: '关注',
+  },
+  {
+    key: '/platforms',
+    label: '平台',
+    title: '平台',
+  },
+  {
+    key: '/categories',
+    label: '分区',
+    title: '分区',
+  },
+])
+
+const router = useRouter()
+
+function handleClick(e) {
+  router.push({ path: e.key })
 }
 </script>
 
@@ -29,7 +59,13 @@ const siderStyle: CSSProperties = {
     </a-layout-header>
     <a-layout>
       <a-layout-sider :style="siderStyle">
-        Sider
+        <a-menu
+          v-model:openKeys="openKeys"
+          v-model:selectedKeys="selectedKeys"
+          mode="vertical"
+          :items="items"
+          @click="handleClick"
+        />
       </a-layout-sider>
       <a-layout-content relative :style="contentStyle">
         <div v-if="loading" absolute z-100 h-full w-full class="bg-black/10">
