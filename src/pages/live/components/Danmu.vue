@@ -36,11 +36,11 @@ function initHuyaWs() {
         const inRoomMsg = Danmulib._bind_ws_info(data.luid)
         const loginMsg = Danmulib.huyaSendPingReq()
         ws.send(inRoomMsg)
-        ws.send(loginMsg)
+        ws.send(loginMsg!)
       }
       comp.interval = setInterval(() => {
         const heartBeatMsg = Danmulib.huyaSendPingReq()
-        ws.send(heartBeatMsg)
+        ws.send(heartBeatMsg!)
       }, 30 * 1000)
 
       ws.onmessage = async function (msg) {
@@ -48,10 +48,10 @@ function initHuyaWs() {
         reader.readAsArrayBuffer(msg.data)
         reader.onload = function () {
           const msg_obj = Danmulib._on_mes(this.result) || ''
+          if (msg_obj === '')
+            return
           if (msg_obj.type === 'chat') {
             // if (_this.isBanned('999', msg_obj.content))
-            // if (danmuList.value.length > danmuLength.value)
-            //   danmuList.value.shift()
             danmuList.value.push({ msg: msg_obj.content, user: msg_obj.name, id: createRandomId(2) })
             emitDanmu(msg_obj.content)
           }
@@ -123,7 +123,7 @@ function initBilibiliWs() {
       case 8:
         break
       case 5:
-        packet.body.forEach((body) => {
+        packet.body.forEach((body: { cmd: string, info: any[] }) => {
           switch (body.cmd) {
             case 'DANMU_MSG':
               // if (_this.isBanned(body.info[4][0], `${body.info[1]}`))
@@ -151,7 +151,7 @@ function initDanmaku(el: HTMLElement) {
   })
 }
 
-function emitDanmu(text) {
+function emitDanmu(text: string) {
   const danmu = {
     text,
     style: {

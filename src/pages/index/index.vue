@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { RecommendData, RecommendResponse } from './types'
 import { changeLoadingStatus } from '~/store'
+import useScroll from '~/hooks/useScroll'
 
 const indexRecommendData = ref<RecommendData[]>()
 
@@ -16,29 +17,19 @@ async function getIndexRecommendData() {
 }
 
 const scrollContainer = ref<HTMLElement>()
-
-async function loadMoreData() {
-  const { scrollTop, scrollHeight, clientHeight } = scrollContainer.value!
-  const d = scrollHeight - scrollTop - clientHeight
-  if (d < 1 && d > -1) {
-    page.value++
-    await getIndexRecommendData()
-  }
-}
+useScroll(scrollContainer, async () => {
+  page.value++
+  await getIndexRecommendData()
+})
 
 onMounted(async () => {
   await getIndexRecommendData()
-  scrollContainer.value!.addEventListener('scroll', loadMoreData)
-})
-
-onBeforeUnmount(() => {
-  scrollContainer.value!.removeEventListener('scroll', loadMoreData)
 })
 </script>
 
 <template>
   <IndexLayout v-slot="{ contentHeight }">
-    <div ref="scrollContainer" :style="`height:${contentHeight}px; overflow-y:auto;padding: 16px`" class="container">
+    <div ref="scrollContainer" :style="`height:${contentHeight}px; overflow-y:auto;padding: 16px`" class="scroll-container">
       <div flex="~ wrap justify-between gap-y-4" class="card-container">
         <div v-for="roomData in indexRecommendData" :key="roomData.roomId">
           <RoomCard :room-data="roomData" />
@@ -47,34 +38,3 @@ onBeforeUnmount(() => {
     </div>
   </IndexLayout>
 </template>
-
-<style scoped>
-.card-container::after {
-  content: '';
-  display: block;
-  width: 300px;
-}
-
-.container::-webkit-scrollbar {
-  width: 10px;
-}
-
-.container::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.container::-webkit-scrollbar-thumb {
-  background: rgb(136, 136, 136);
-  border-radius: 10px;
-}
-
-.container::-webkit-scrollbar-thumb:hover {
-  background: rgb(100, 100, 100);
-  border-radius: 10px;
-}
-
-.container::-webkit-scrollbar-thumb:active {
-  background: rgb(68, 68, 68);
-  border-radius: 10px;
-}
-</style>

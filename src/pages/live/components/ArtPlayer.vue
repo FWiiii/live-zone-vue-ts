@@ -42,7 +42,7 @@ function setLiveSourceInfo() {
   // 设置当前选中的清晰度(需要根据上次选中的判断)
   const lastSelectQualityList = qualityMap.get(liveSourceInfo.selectSource)
   if (lastSelectRate != null) {
-    lastSelectQualityList.forEach((quality) => {
+    lastSelectQualityList.forEach((quality: { qualityName: string }) => {
       if (quality.qualityName === lastSelectRate)
         liveSourceInfo.selectRate = lastSelectRate
     })
@@ -59,7 +59,7 @@ function setLiveSourceInfo() {
     })
 
     // 处理清晰度
-    qualityList.forEach((quality) => {
+    qualityList.forEach((quality: { qualityName: any, playUrl: string }) => {
       const rateName = quality.qualityName
       if (rateName.includes('PRO'))
         return
@@ -79,7 +79,7 @@ function setLiveSourceInfo() {
   })
 }
 
-function changPlayUrl(source, rate, art) {
+function changPlayUrl(source: string | HTMLElement, rate: string | HTMLElement, art: Artplayer) {
   const playUrl = liveSourceInfo.sourceAndRateMap.get(`${source}===${rate}`)
   localStorage.setItem(`urlSource${platform}`, source)
   localStorage.setItem(`urlRate${platform}`, rate)

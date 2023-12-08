@@ -1,23 +1,18 @@
 <script setup lang="ts">
+import type { Key } from 'ant-design-vue/es/_util/type'
+import { TypeName } from './types'
+import type { Categorie } from './types'
 import { changeLoadingStatus } from '~/store'
-
-enum TypeName {
-  其他 = '其他',
-  单机 = '单机',
-  娱乐 = '娱乐',
-  手游 = '手游',
-  网游 = '网游',
-}
-interface Categorie {
-  id: number
-  typeName: TypeName
-  areaName: string
-  priority: number
-  areaPic: string
-}
+import useScroll from '~/hooks/useScroll'
 
 const categories = ref<Categorie[][]>()
-const cat = ref({})
+const cat = ref<{ [key in TypeName]: Categorie[] }>({
+  [TypeName.网游]: [],
+  [TypeName.手游]: [],
+  [TypeName.单机]: [],
+  [TypeName.娱乐]: [],
+  [TypeName.其他]: [],
+})
 async function getAllCategories() {
   changeLoadingStatus(true)
   const { data } = await useFetch('http://live.yj1211.work/api/live/getAllAreas').get().json()
@@ -28,11 +23,27 @@ async function getAllCategories() {
   })
 }
 
-const defaultType = ref(TypeName.网游)
-const selectedCategory = computed(() => cat.value[defaultType.value])
+const selectedType = ref(TypeName.网游)
+const selectedCategory = computed(() => cat.value[selectedType.value])
+const renPage = ref<number>(0)
+const renSise = ref<number>(20)
+const renderCategory = computed(() => {
+  return selectedCategory.value.slice(0, renPage.value + renSise.value)
+})
 
-function tabClick(e) {
-  defaultType.value = e
+function tabClick(key: Key) {
+  selectedType.value = key as TypeName
+  renPage.value = 0
+}
+
+const scrollContainer = ref<HTMLElement>()
+useScroll(scrollContainer, () => {
+  renPage.value += renSise.value
+})
+
+const routerObj = {
+  path: '/category',
+  query: ['typeName', 'areaName'],
 }
 
 onMounted(async () => {
@@ -42,20 +53,21 @@ onMounted(async () => {
 
 <template>
   <IndexLayout v-slot="{ contentHeight }">
-    <div :style="`height:${contentHeight}px;`">
-      <a-tabs ml-8 @tabClick="tabClick">
-        <a-tab-pane v-for="(val, key, index) in cat" :key="key" :tab="key" />
+    <div ref="scrollContainer" class="scroll-container" :style="`height:${contentHeight}px;overflow-y:auto;padding: 16px`">
+      <a-tabs @tabClick="tabClick">
+        <a-tab-pane v-for="(val, key, index) in cat" :key="key" :tab="key">
+          <div flex="~ wrap justify-between gap-y-4" class="card-container">
+            <router-link v-for="item in renderCategory" :key="item.id" :to="{ path: '/category', query: { typeName: `${selectedType}`, areaName: item.areaName } }">
+              <a-card hoverable max-h-100 w-60 flex="~ col items-center gap-2" bg-gray-100>
+                <template #cover>
+                  <img v-lazy="item.areaPic" h-60 w-60 object-cover>
+                </template>
+                <span>{{ item.areaName }}</span>
+              </a-card>
+            </router-link>
+          </div>
+        </a-tab-pane>
       </a-tabs>
-      <div flex="~ wrap justify-between gap-y-4" style="overflow-y:auto;padding: 16px">
-        <a-card v-for="item in selectedCategory" :key="item.id" hoverable max-h-100 w-60 flex="~ col items-center gap-2" bg-gray-100>
-          <template #cover>
-            <div h-60 w-60>
-              <img v-lazy="item.areaPic" h-full w-full object-cover>
-            </div>
-          </template>
-          <span>{{ item.areaName }}</span>
-        </a-card>
-      </div>
     </div>
   </IndexLayout>
 </template>

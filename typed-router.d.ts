@@ -42,11 +42,13 @@ declare module 'vue-router/auto/routes' {
   export interface RouteNamedMap {
     '//': RouteRecordInfo<'//', '/', Record<never, never>, Record<never, never>>,
   }  '/categories/': RouteRecordInfo<'/categories/', '/categories', Record<never, never>, Record<never, never>>,
+    '/category/': RouteRecordInfo<'/category/', '/category', Record<never, never>, Record<never, never>>,
     '/live/': RouteRecordInfo<'/live/', '/live', Record<never, never>, Record<never, never>>,
     '/live/components/ArtPlayer': RouteRecordInfo<'/live/components/ArtPlayer', '/live/components/ArtPlayer', Record<never, never>, Record<never, never>>,
     '/live/components/Danmu': RouteRecordInfo<'/live/components/Danmu', '/live/components/Danmu', Record<never, never>, Record<never, never>>,
     '/live/components/DanmuItem': RouteRecordInfo<'/live/components/DanmuItem', '/live/components/DanmuItem', Record<never, never>, Record<never, never>>,
     '/live/components/RoomInfo': RouteRecordInfo<'/live/components/RoomInfo', '/live/components/RoomInfo', Record<never, never>, Record<never, never>>,
+    '/platform/': RouteRecordInfo<'/platform/', '/platform', Record<never, never>, Record<never, never>>,
     '/platforms/': RouteRecordInfo<'/platforms/', '/platforms', Record<never, never>, Record<never, never>>,
   }
 }

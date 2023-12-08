@@ -1,12 +1,6 @@
 <script setup lang="ts">
+import type { Platform } from './types'
 import { changeLoadingStatus } from '~/store'
-
-interface Platform {
-  name: string
-  code: string
-  logoImage: string
-  androidDanmuSupport: boolean
-}
 
 const platforms = ref<Platform[]>()
 
@@ -19,21 +13,22 @@ async function getAllSupportPlatforms() {
 
 onMounted(async () => {
   await getAllSupportPlatforms()
-  console.log(platforms.value)
 })
 </script>
 
 <template>
   <IndexLayout v-slot="{ contentHeight }">
     <div flex="~ wrap justify-between gap-y-4" :style="`height:${contentHeight}px; overflow-y:auto;padding: 16px`">
-      <a-card v-for="item in platforms" :key="item.code" hoverable max-h-100 w-60 flex="~ col items-center gap-2" bg-gray-100>
-        <template #cover>
-          <div h-60 w-60>
-            <img :src="item.logoImage" h-full w-full object-cover>
-          </div>
-        </template>
-        <span>{{ item.name }}</span>
-      </a-card>
+      <template v-for="item in platforms" :key="item.code">
+        <router-link :to="{ path: '/platform', query: { platform: item.code } }">
+          <a-card hoverable max-h-100 w-60 flex="~ col items-center gap-2" bg-gray-100>
+            <template #cover>
+              <img :src="item.logoImage" h-60 w-60 object-cover>
+            </template>
+            <span>{{ item.name }}</span>
+          </a-card>
+        </router-link>
+      </template>
     </div>
   </IndexLayout>
 </template>
